@@ -83,8 +83,6 @@ namespace ALE_RespawnFix {
 
                 Vector3D pos = FindRandomPosition(min, max);
 
-                Log.Info("Spawn Position: "+pos+" Distance to center: " + Vector3D.Distance(Vector3D.Zero, pos));
-
                 bool goodLocation = CheckIfLocationIsGood(planets, pos);
 
                 if (goodLocation) {
