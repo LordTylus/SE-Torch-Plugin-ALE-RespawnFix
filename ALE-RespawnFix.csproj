@@ -153,7 +153,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MySpaceRespawnComponentPatch.cs" />
+    <Compile Include="RespawnFixConfig.cs" />
     <Compile Include="RespawnFixPlugin.cs" />
+    <Compile Include="RespawnControl.xaml.cs">
+      <DependentUpon>RespawnControl.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="RespawnControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="ALE-Core\ALE-Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
