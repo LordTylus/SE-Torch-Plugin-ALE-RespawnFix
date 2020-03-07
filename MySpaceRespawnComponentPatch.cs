@@ -49,13 +49,15 @@ namespace ALE_RespawnFix {
             
             List<Vector3D> positions = new List<Vector3D>();
 
-            if (faction != null) 
+            if (faction != null) {
+
                 AddFriendlyLocations(faction, positions);
+                
+                positions.ShuffleList();
+            }
 
-            if (positions.Count == 0)
-                AddRandomSpawnLocationIfConfigured(positions);
+            AddRandomSpawnLocationIfConfigured(positions);
 
-            positions.ShuffleList();
             __result = positions.GetClearToken();
 
             return false;
