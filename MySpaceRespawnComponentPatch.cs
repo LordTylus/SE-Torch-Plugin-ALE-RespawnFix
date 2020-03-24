@@ -8,15 +8,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Torch.API.Session;
 using Torch.Managers.PatchManager;
-using Torch.Utils;
 using VRage.Game.ModAPI;
 using VRage.Utils;
 using VRageMath;
 
 namespace ALE_RespawnFix {
 
-    public class MySpaceRespawnComponentPatch {
+    [PatchShim]
+    public static class MySpaceRespawnComponentPatch {
 
         public static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
@@ -30,20 +31,16 @@ namespace ALE_RespawnFix {
 
         public static void Patch(PatchContext ctx) {
 
-            ReflectedManager.Process(typeof(MySpaceRespawnComponentPatch));
+            ctx.GetPattern(update).Prefixes.Add(updatePatch);
 
-            try {
-
-                ctx.GetPattern(update).Prefixes.Add(updatePatch);
-
-                Log.Info("Patching Successful MySpaceRespawnComponent!");
-
-            } catch (Exception e) {
-                Log.Error(e, "Patching failed!");
-            }
+            Log.Debug("Patching Successful MySpaceRespawnComponent!");
         }
 
         public static bool GetFriendlyPlayerPositionsPatch(ref ClearToken<Vector3D> __result, long identityId) {
+
+            var session = RespawnFixPlugin.Instance.Torch.CurrentSession;
+            if (session == null || session.State != TorchSessionState.Loaded)
+                return true;
 
             var faction = FactionUtils.GetPlayerFaction(identityId);
             

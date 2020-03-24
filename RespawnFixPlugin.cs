@@ -28,8 +28,6 @@ namespace ALE_RespawnFix {
         private Persistent<RespawnFixConfig> _config;
         public RespawnFixConfig Config => _config?.Data;
 
-        private PatchManager patchManager;
-        private PatchContext ctx;
         public void Save() => _config.Save();
 
         public override void Init(ITorchBase torch) {
@@ -39,22 +37,6 @@ namespace ALE_RespawnFix {
             Instance = this;
 
             SetupConfig();
-
-            var sessionManager = Torch.Managers.GetManager<TorchSessionManager>();
-            if (sessionManager != null)
-                sessionManager.SessionStateChanged += SessionChanged;
-            else
-                Log.Warn("No session manager loaded!");
-
-            patchManager = Torch.Managers.GetManager<PatchManager>();
-            if (patchManager != null) {
-
-                if (ctx == null)
-                    ctx = patchManager.AcquireContext();
-
-            } else {
-                Log.Warn("No patch manager loaded!");
-            }
         }
 
         private void SetupConfig() {
@@ -75,15 +57,6 @@ namespace ALE_RespawnFix {
 
                 _config = new Persistent<RespawnFixConfig>(configFile, new RespawnFixConfig());
                 _config.Save();
-            }
-        }
-
-        private void SessionChanged(ITorchSession session, TorchSessionState newState) {
-
-            if (newState == TorchSessionState.Loaded) {
-
-                MySpaceRespawnComponentPatch.Patch(ctx);
-                patchManager.Commit();
             }
         }
     }
