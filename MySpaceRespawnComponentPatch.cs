@@ -77,10 +77,11 @@ namespace ALE_RespawnFix {
             }
 
             var planets = MyEntities.GetEntities().OfType<MyPlanet>();
+            var origin = new Vector3D(Config.CenterX, Config.CenterY, Config.CenterZ);
 
-            for(int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++) {
 
-                Vector3D pos = FindRandomPosition(min, max);
+                Vector3D pos = FindRandomPosition(origin, min, max);
 
                 bool goodLocation = CheckIfLocationIsGood(planets, pos);
 
@@ -100,19 +101,19 @@ namespace ALE_RespawnFix {
             return true;
         }
 
-        private static Vector3D FindRandomPosition(double min, double max) {
+        private static Vector3D FindRandomPosition(Vector3D origin, double min, double max) {
 
             double randomX = MyUtils.GetRandomDouble(-1, 1);
             double randomY = MyUtils.GetRandomDouble(-1, 1);
             double randomZ = MyUtils.GetRandomDouble(-1, 1);
 
-            Vector3D origin = Vector3D.Zero;
             Vector3D random = new Vector3D(randomX, randomY, randomZ);
 
             double distanceToOrigin = Vector3D.Distance(origin, random);
 
             double distance = MyUtils.GetRandomDouble(min, max);
-            return random * (distance / distanceToOrigin);
+
+            return origin + (random * (distance / distanceToOrigin));
         }
 
         private static void AddFriendlyLocations(IMyFaction faction, List<Vector3D> positions) {
