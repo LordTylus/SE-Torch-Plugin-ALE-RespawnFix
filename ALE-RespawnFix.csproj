@@ -152,15 +152,15 @@
     <Resource Include="manifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MySpaceRespawnComponentPatch.cs" />
-    <Compile Include="RespawnFixConfig.cs" />
-    <Compile Include="RespawnFixPlugin.cs" />
-    <Compile Include="RespawnControl.xaml.cs">
+    <Compile Include="ALE-RespawnFix\MySpaceRespawnComponentPatch.cs" />
+    <Compile Include="ALE-RespawnFix\RespawnFixConfig.cs" />
+    <Compile Include="ALE-RespawnFix\RespawnFixPlugin.cs" />
+    <Compile Include="ALE-RespawnFix\RespawnControl.xaml.cs">
       <DependentUpon>RespawnControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="RespawnControl.xaml">
+    <Page Include="ALE-RespawnFix\RespawnControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
