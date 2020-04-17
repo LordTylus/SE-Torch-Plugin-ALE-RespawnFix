@@ -117,16 +117,22 @@ namespace ALE_RespawnFix {
         }
 
         private static void AddFriendlyLocations(IMyFaction faction, List<Vector3D> positions) {
-            
-            foreach (long member in faction.Members.Keys) {
 
-                MyIdentity identity = PlayerUtils.GetIdentityById(member);
+            try {
 
-                MyCharacter character = identity.Character;
-                if (character == null || character.IsDead || character.MarkedForClose)
-                    continue;
+                foreach (long member in faction.Members.Keys) {
 
-                positions.Add(character.PositionComp.GetPosition());
+                    MyIdentity identity = PlayerUtils.GetIdentityById(member);
+
+                    MyCharacter character = identity.Character;
+                    if (character == null || character.IsDead || character.MarkedForClose)
+                        continue;
+
+                    positions.Add(character.PositionComp.GetPosition());
+                }
+
+            } catch(Exception e) {
+                Log.Error(e, "Faction "+faction.Name+" ["+faction.Tag+"] seems broken. Maybe it has no founder? Respawn Fix will not work for broken factions!");
             }
         }
     }
