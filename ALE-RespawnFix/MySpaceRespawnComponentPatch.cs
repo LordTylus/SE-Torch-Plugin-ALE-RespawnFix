@@ -79,7 +79,9 @@ namespace ALE_RespawnFix {
             var planets = MyEntities.GetEntities().OfType<MyPlanet>();
             var origin = new Vector3D(Config.CenterX, Config.CenterY, Config.CenterZ);
 
-            for (int i = 0; i < 10; i++) {
+            int maxTries = 10;
+
+            for (int i = 0; i < maxTries; i++) {
 
                 Vector3D pos = FindRandomPosition(origin, min, max);
 
@@ -90,6 +92,8 @@ namespace ALE_RespawnFix {
                     return;
                 }
             }
+
+            Log.Warn("RespawnFix: Could not add spawn location, no suitable place was found after "+ maxTries +" tries!");
         }
 
         private static bool CheckIfLocationIsGood(IEnumerable<MyPlanet> planets, Vector3D pos) {
