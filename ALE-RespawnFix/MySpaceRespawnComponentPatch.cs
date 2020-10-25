@@ -113,7 +113,7 @@ namespace ALE_RespawnFix {
 
             Vector3D random = new Vector3D(randomX, randomY, randomZ);
 
-            double distanceToOrigin = Vector3D.Distance(origin, random);
+            double distanceToOrigin = random.Length();
 
             double distance = MyUtils.GetRandomDouble(min, max);
 
