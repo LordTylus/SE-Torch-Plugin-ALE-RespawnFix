@@ -149,9 +149,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="manifest.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ALE-RespawnFix\MySpaceRespawnComponentPatch.cs" />
     <Compile Include="ALE-RespawnFix\RespawnFixConfig.cs" />
     <Compile Include="ALE-RespawnFix\RespawnFixPlugin.cs" />
@@ -167,8 +164,11 @@
   </ItemGroup>
   <Import Project="ALE-Core\ALE-Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /y /d  "$(ProjectDir)manifest.xml" "$(ProjectDir)$(OutDir)"
-</PostBuildEvent>
-  </PropertyGroup>
+    <ItemGroup>
+        <Content Include="$(ProjectDir)\manifest.xml" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+    <Target Name="Zip" BeforeTargets="AfterBuild">
+        <MakeDir Directories="$(SolutionDir)\Build\" />
+        <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(SolutionDir)\Build\$(MSBuildProjectName).zip" Overwrite="true" />
+    </Target>
 </Project>
