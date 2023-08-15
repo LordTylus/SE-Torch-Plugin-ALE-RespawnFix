@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F1C95621-1BB0-44BC-8130-4B6F96CEBD0C}</ProjectGuid>
+    <ProjectGuid>{36DE1FD4-5AF3-417C-B517-CC1EFC0F18A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>ALE_RespawnFix</RootNamespace>
     <AssemblyName>ALE-RespawnFix</AssemblyName>
@@ -162,13 +162,13 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <Import Project="ALE-Core\ALE-Core.projitems" Label="Shared" />
+  <Import Project="..\ALE-Core\ALE-Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <ItemGroup>
-        <Content Include="$(ProjectDir)\manifest.xml" CopyToOutputDirectory="PreserveNewest" />
-    </ItemGroup>
-    <Target Name="Zip" BeforeTargets="AfterBuild">
-        <MakeDir Directories="$(SolutionDir)\Build\" />
-        <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(SolutionDir)\Build\$(MSBuildProjectName).zip" Overwrite="true" />
-    </Target>
+  <ItemGroup>
+    <Content Include="$(ProjectDir)\manifest.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="Zip" BeforeTargets="AfterBuild">
+    <MakeDir Directories="$(SolutionDir)\Build\" />
+    <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(SolutionDir)\Build\$(MSBuildProjectName).zip" Overwrite="true" />
+  </Target>
 </Project>
